@@ -26,10 +26,19 @@ public class Date{
 		this.year=year;
 
 	}
+	
+	public Date(int month, int year){
+
+		this.day=0;
+		this.month=month;
+		this.year=year;
+
+	}
+	
 	//Do
-	public String toString(boolean day){
+	public String toString(){
 		
-		if(day){
+		if(day!=0){
 			
 			return this.day+"/"+month+"/"+year;
 			

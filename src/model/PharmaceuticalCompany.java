@@ -1,6 +1,6 @@
 package model;
 
-public class PharmaceuticalCompany extends ProductionCompany{
+public class PharmaceuticalCompany extends ProductionCompany implements TreePlanter{
 	
 	//Constants
 	public final static String[] MODALITY_TYPES={"FABRICAR Y EXPORTAR", "FABRICAR Y VENDER", "IMPORTAR Y VENDER"};
@@ -12,13 +12,16 @@ public class PharmaceuticalCompany extends ProductionCompany{
 	private String modality;
 	
 	//Constructor
-	public PharmaceuticalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, String sanitaryRecord, boolean status, Date expiration, String modality){
+	public PharmaceuticalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, String sanitaryRecord, boolean status, int expirationMonth, int expirationYear, String modality){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type);
 		
 		this.sanitaryRecord=sanitaryRecord;
 		this.status=status;
+		
+		Date expiration=new Date(expirationMonth, expirationYear);
 		this.expiration=expiration;
+		
 		this.modality=modality;
 		
 	}
@@ -26,13 +29,42 @@ public class PharmaceuticalCompany extends ProductionCompany{
 	//Do
 	public String toString(){
 		
-		String toString="\n	Nombre: "+getName()+"\n	Nit: "+getNit()+"\n	Representante Legal: "+getRepresentativeName()+"\n	Dirreccion: "+getAddress()+"\n	Telefono: "+getPhone()+"\n	Cantidad Empleados: "+getEmployeeQuantity()+"\n	Valor Activos: "+getAssetsValue()+"\n	Fecha Constitucion: "+getCreationDate().toString(true)+"\n	Tipo: "+getType()+"\n	Registro Sanitario: "+sanitaryRecord+"\n	Estado: "+status+"\n	Vencimiento: "+expiration.toString(false)+"\n	Modalidad: "+modality;
+		String toString=super.toString();
+		toString+="\n	Registro Sanitario: "+sanitaryRecord;
+		toString+="\n	Estado: "+status;
+		toString+="\n	Vencimiento: "+expiration.toString();
+		toString+="\n	Modalidad: "+modality;
+		return toString;
+		
+	}
+	
+	public int calculateYearTreePlanting(){
+		
+		double water=0;
 		for(int i=0; i<getProducts().size(); i++){
 			
-			toString+="\n	~Producto "+(i+1)+":"+getProducts().get(i).toString();
+			water+=(getProducts().get(i).getRequiredWater())*(getProducts().get(i).getQuantity());
 			
 		}
-		return toString;
+		
+		int trees=0;
+		if((water>=1)&&(water<=140)){
+			
+			trees=6;
+			
+		}
+		else if((water>140)&&(water<=800)){
+			
+			trees=25;
+			
+		}
+		else if(water>800){
+			
+			trees=200;
+			
+		}
+		
+		return trees;
 		
 	}
 	

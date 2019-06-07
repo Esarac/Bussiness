@@ -1,6 +1,6 @@
 package model;
 
-public class PublicCompany extends ServiceCompany{
+public class PublicCompany extends ServiceCompany implements ProCulturizer{
 	
 	//Constants
 	public final static String[] SERVICE_TYPES={"ALCANTARILLADO", "ENERGIA", "ACUEDUCTO"};
@@ -11,9 +11,9 @@ public class PublicCompany extends ServiceCompany{
 	private int lowStratumSubscribersQuantity;
 	
 	//Constructor
-	public PublicCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, String service, int subscribersQuantity, int lowStratumSubscribersQuantity){
+	public PublicCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, String service, int subscribersQuantity, int lowStratumSubscribersQuantity){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type);
 		
 		this.service=service;
 		this.subscribersQuantity=subscribersQuantity;
@@ -24,8 +24,24 @@ public class PublicCompany extends ServiceCompany{
 	//Do
 	public String toString(){
 		
-		String toString="\n	Nombre: "+getName()+"\n	Nit: "+getNit()+"\n	Representante Legal: "+getRepresentativeName()+"\n	Dirreccion: "+getAddress()+"\n	Telefono: "+getPhone()+"\n	Cantidad Empleados: "+getEmployeeQuantity()+"\n	Valor Activos: "+getAssetsValue()+"\n	Fecha Constitucion: "+getCreationDate().toString(true)+"\n	Tipo: "+getType()+"\n	Servicio: "+service+"\n	Cantidad Suscriptores: "+subscribersQuantity+"\n	Cantidad Suscriptores Estrato Bajo: "+lowStratumSubscribersQuantity;
+		String toString=super.toString();
+		toString+="\n	Servicio: "+service;
+		toString+="\n	Cantidad Suscriptores: "+subscribersQuantity;
+		toString+="\n	Cantidad Suscriptores Estrato Bajo: "+lowStratumSubscribersQuantity;
 		return toString;
+		
+	}
+	
+	public double calculateTaxProCuluture(){
+		
+		double tax=0.4-((double)(subscribersQuantity-lowStratumSubscribersQuantity)/subscribersQuantity);
+		if(tax<0){
+			
+			tax=0;
+			
+		}
+		
+		return tax;
 		
 	}
 	

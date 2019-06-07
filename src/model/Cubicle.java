@@ -3,9 +3,7 @@ package model;
 public class Cubicle{
 	
 	//Attributes
-	private String employeeName;
-	private String employeeCharge;
-	private String employeeEmail;
+	private Employee employee;
 	private String extension;
 	
 	//Constructor
@@ -16,22 +14,42 @@ public class Cubicle{
 	}
 	
 	//Do
-	public String addEmployee(String employeeName, String employeeCharge, String employeeEmail){
+	public String addEmployee(String name, String charge, String email){
 		
 		String message="Se ha aniadido el empleado";
 		
-		this.employeeName=employeeName;
-		this.employeeCharge=employeeCharge;
-		this.employeeEmail=employeeEmail;
+		employee=new Employee(name, charge, email);
 		
 		return message;
 		
 	}
 	
-	//Gets
-	public String getEmployeeName(){
+	public String emailByCharge(String charge){
 		
-		return employeeName;
+		String email="";
+		
+		if(employee!=null){
+			if(charge.equals(employee.getCharge())){
+				
+				email="\n-"+employee.getEmail();
+				
+			}
+		}
+		
+		return email;
+		
+	}
+	
+	//Gets
+	public Employee getEmployee(){
+		
+		return employee;
+		
+	}
+	
+	public String getExtension(){
+		
+		return extension;
 		
 	}
 	

@@ -7,9 +7,9 @@ public class ProductionCompany extends SubordinateCompany{
 	private ArrayList<Product> products;
 	
 	//Constructor
-	public ProductionCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type){
+	public ProductionCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type);
 		
 		this.products=new ArrayList<Product>();
 		
@@ -18,7 +18,7 @@ public class ProductionCompany extends SubordinateCompany{
 	//Do
 	public String toString(){
 		
-		String toString="\n	Nombre: "+getName()+"\n	Nit: "+getNit()+"\n	Representante Legal: "+getRepresentativeName()+"\n	Dirreccion: "+getAddress()+"\n	Telefono: "+getPhone()+"\n	Cantidad Empleados: "+getEmployeeQuantity()+"\n	Valor Activos: "+getAssetsValue()+"\n	Fecha Constitucion: "+getCreationDate().toString(true)+"\n	Tipo: "+getType();
+		String toString=super.toString();
 		for(int i=0; i<products.size(); i++){
 			
 			toString+="\n	~Producto "+(i+1)+":"+products.get(i).toString();

@@ -25,4 +25,17 @@ public class Product{
 		
 	}
 	
+	//Gets
+	public double getRequiredWater(){
+		
+		return requiredWater;
+		
+	}
+	
+	public int getQuantity(){
+		
+		return quantity;
+		
+	}
+	
 }

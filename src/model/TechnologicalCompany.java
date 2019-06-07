@@ -1,18 +1,20 @@
 package model;
-import java.util.ArrayList;
 
-public class TechnologicalCompany extends ServiceCompany{
+public class TechnologicalCompany extends ServiceCompany implements TreePlanter{
 	
 	//Constants
 	public final static String[] SERVICE_TYPES={"CONSULTORIA", "CAPACITACION", "DESARROLLO DE SOFTWARE A LA MEDIDA", "INFRAESTRUCTURA COMO SERVICIO", "SOFTWARE COMO SERVICIO", "PLATAFORMA COMO SERVICIO"};	
 	
 	//Attributes
+	private double energy;
 	private boolean[] services;
 	
 	//Constructor
-	public TechnologicalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, boolean services0, boolean services1, boolean services2, boolean services3, boolean services4, boolean services5){
+	public TechnologicalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, double energy, boolean services0, boolean services1, boolean services2, boolean services3, boolean services4, boolean services5){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type);
+		
+		this.energy=energy;
 		
 		this.services=new boolean[6];
 		this.services[0]=services0;
@@ -27,7 +29,9 @@ public class TechnologicalCompany extends ServiceCompany{
 	//Do
 	public String toString(){
 		
-		String toString="\n	Nombre: "+getName()+"\n	Nit: "+getNit()+"\n	Representante Legal: "+getRepresentativeName()+"\n	Dirreccion: "+getAddress()+"\n	Telefono: "+getPhone()+"\n	Cantidad Empleados: "+getEmployeeQuantity()+"\n	Valor Activos: "+getAssetsValue()+"\n	Fecha Constitucion: "+getCreationDate().toString(true)+"\n	Tipo: "+getType()+"\n	Servicios: ";
+		String toString=super.toString();
+		toString+="\n	Energia Consumida: "+energy;
+		toString+="\n	Servicios: ";
 		boolean found=false;
 		for(int i=0; i<services.length; i++){
 			
@@ -49,6 +53,29 @@ public class TechnologicalCompany extends ServiceCompany{
 			
 		}
 		return toString;
+		
+	}
+	
+	public int calculateYearTreePlanting(){
+		
+		int trees=0;
+		if((energy>=1)&&(energy<=1000)){
+			
+			trees=8;
+			
+		}
+		else if((energy>1000)&&(energy<=3000)){
+			
+			trees=35;
+			
+		}
+		else if(energy>3000){
+			
+			trees=500;
+			
+		}
+		
+		return trees;
 		
 	}
 	

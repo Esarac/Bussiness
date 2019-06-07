@@ -9,9 +9,9 @@ public class FoodCompany extends ProductionCompany{
 	
 	
 	//Constructor
-	public FoodCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, boolean kosherCertification, boolean goodAgriculturalPractices, String chemicals){
+	public FoodCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, boolean kosherCertification, boolean goodAgriculturalPractices, String chemicals){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type);
 		
 		this.kosherCertification=kosherCertification;
 		this.goodAgriculturalPractices=goodAgriculturalPractices;
@@ -22,12 +22,12 @@ public class FoodCompany extends ProductionCompany{
 	//Do
 	public String toString(){
 		
-		String toString="\n	Nombre: "+getName()+"\n	Nit: "+getNit()+"\n	Representante Legal: "+getRepresentativeName()+"\n	Dirreccion: "+getAddress()+"\n	Telefono: "+getPhone()+"\n	Cantidad Empleados: "+getEmployeeQuantity()+"\n	Valor Activos: "+getAssetsValue()+"\n	Fecha Constitucion: "+getCreationDate().toString(true)+"\n	Tipo: "+getType()+"\n	Certificado Kosher: "+kosherCertification+"\n	Buena Practicas Agricolas: "+goodAgriculturalPractices+"\n	Quimicos: "+chemicals;
-		for(int i=0; i<getProducts().size(); i++){
-			
-			toString+="\n	~Producto "+(i+1)+":"+getProducts().get(i).toString();
-			
-		}
+		String toString=super.toString();
+		if(kosherCertification){toString+="\n	Certificado Kosher: Si";}
+		else{toString+="\n	Certificado Kosher: No";}
+		if(goodAgriculturalPractices){toString+="\n	Buena Practicas Agricolas: Si";}
+		else{toString+="\n	Buena Practicas Agricolas: Si";}
+		toString+="\n	Quimicos: "+chemicals;
 		return toString;
 		
 	}

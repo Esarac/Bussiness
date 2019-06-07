@@ -7,55 +7,80 @@ public class HoldingCompany extends Company{
 	private ArrayList<Company> companies;
 	
 	//Constructor
-	public HoldingCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles){
+	public HoldingCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors);
 		
 		this.companies=new ArrayList<Company>();
 		
 	}
 	
-	//Do
-	public String toString(){
+	//Show
+	public String showMenu(){
 		
-		String toString="\nNombre: "+getName()+"\nNit: "+getNit()+"\nRepresentante Legal: "+getRepresentativeName()+"\nDirreccion: "+getAddress()+"\nTelefono: "+getPhone()+"\nCantidad Empleados: "+getEmployeeQuantity()+"\nValor Activos: "+getAssetsValue()+"\nFecha Constitucion: "+getCreationDate().toString(true);
+		String menu="___________________________________________________________________________________________________________";
+		menu+="\nBienvenido al menu de la empresa de holding "+getName();
+		menu+="\n___________________________________________________________________________________________________________";
+		menu+="\n1.Mostrar datos de la empresa de holding";
+		menu+="\n2.Crear una empresa";
+		menu+="\n3.Registrar empleado";
+		menu+="\n4.Mostrar la extencion del cubiculo del edificio por el nombre del empleado";
+		menu+="\n5.Mostrar los correos de los empleados en un cargo especifico";
+		menu+="\n6.Crear un producto [Empresa de fabricacion]";
+		menu+="\n7.Registrar una encuesta [Empresa de servicios]";
+		menu+="\n8.Mostrar Satisfaccion empresa de servicio [Empresa de servicios]";
+		menu+="\n9.Mostrar impuesto procultura [Empresa de educacion/Empresa de servicios publicos]";
+		menu+="\n10.Mostrar cantidad de arboles que debe plantar en un anio [Empresa de tecnologia/Empresa de medicamentos]";
+		menu+="\n11.Salir";
+		menu+="\n___________________________________________________________________________________________________________";
+		menu+="\n~";
+		return menu;
+		
+	}
+	
+	public String toString(){
+	
+		String toString="___________________________________________________________________________________________________________";
+		toString+="\nNombre: "+getName();
+		toString+="\nNit: "+getNit();
+		toString+="\nRepresentante Legal: "+getRepresentativeName();
+		toString+="\nDirreccion: "+getAddress();
+		toString+="\nTelefono: "+getPhone();
+		toString+="\nCantidad Empleados: "+getEmployeeQuantity();
+		toString+="\nValor Activos: "+getAssetsValue();
+		toString+="\nFecha Constitucion: "+getCreationDate().toString();
+		toString+="\nPisos Edificio: "+getBuilding().length;
 		for(int i=0; i<companies.size(); i++){
 			
 			if(companies.get(i) instanceof TechnologicalCompany){
 				
-				TechnologicalCompany technologicalCompany=(TechnologicalCompany)companies.get(i);
-				toString+="\n~Empresa "+(i+1)+" (Tecnologica):"+technologicalCompany.toString();
+				toString+="\n~Empresa "+(i+1)+" (Tecnologica):"+companies.get(i).toString();
 				
 			}
 			else if(companies.get(i) instanceof EducationCompany){
 				
-				EducationCompany educationCompany=(EducationCompany)companies.get(i);
-				toString+="\n~Empresa "+(i+1)+" (Educacion):"+educationCompany.toString();
+				toString+="\n~Empresa "+(i+1)+" (Educacion):"+companies.get(i).toString();
 				
 			}
 			else if(companies.get(i) instanceof PublicCompany){
 				
-				PublicCompany publicCompany=(PublicCompany)companies.get(i);
-				toString+="\n~Empresa "+(i+1)+" (Servicios Publicos):"+publicCompany.toString();
+				toString+="\n~Empresa "+(i+1)+" (Servicios Publicos):"+companies.get(i).toString();
 				
 			}
 			else if(companies.get(i) instanceof PharmaceuticalCompany){
 				
-				PharmaceuticalCompany pharmaceuticalCompany=(PharmaceuticalCompany)companies.get(i);
-				toString+="\n~Empresa "+(i+1)+" (Medicamentos):"+pharmaceuticalCompany.toString();
+				toString+="\n~Empresa "+(i+1)+" (Medicamentos):"+companies.get(i).toString();
 				
 			}
 			
 			else if(companies.get(i) instanceof FoodCompany){
 				
-				FoodCompany foodCompany=(FoodCompany)companies.get(i);
-				toString+="\n~Empresa "+(i+1)+" (Alimentos):"+foodCompany.toString();
+				toString+="\n~Empresa "+(i+1)+" (Alimentos):"+companies.get(i).toString();
 				
 			}
 			else if(companies.get(i) instanceof ProductionCompany){
 				
-				ProductionCompany productionCompany=(ProductionCompany)companies.get(i);
-				toString+="\n~Empresa "+(i+1)+" (Fabricacion):"+productionCompany.toString();
+				toString+="\n~Empresa "+(i+1)+" (Fabricacion):"+companies.get(i).toString();
 				
 			}
 			else{
@@ -71,7 +96,7 @@ public class HoldingCompany extends Company{
 	
 	public String showSatisfaction(String companyNit){
 		
-		String message="No se encontro la empresa con el nit digitado o la empresa no es una emnpresa de fabricacion";
+		String message="No se encontro la empresa con el nit digitado o la empresa no es una empresa de servicios";
 		
 		for(int i=0;i < companies.size();i++){
 			
@@ -101,67 +126,171 @@ public class HoldingCompany extends Company{
 		
 	}
 	
+	public String showTaxProCulture(String companyNit){
+		
+		String message="No se encontro la empresa con el nit digitado o la empresa no es una empresa de educacion o servicios publicos";
+		
+		for(int i=0;i < companies.size();i++){
+			
+			if(companies.get(i)!=null){
+				
+				if((companyNit.equals(companies.get(i).getNit())) && (companies.get(i) instanceof ProCulturizer)){
+					
+					ProCulturizer company=(ProCulturizer)companies.get(i);
+					message="Impuesto Procultura: "+(company.calculateTaxProCuluture()*100)+"%";
+					
+				}
+				
+			}
+			
+		}
+		
+		return message;
+		
+	}
+	
+	public String showYearTreePlanting(String companyNit){
+		
+		String message="No se encontro la empresa con el nit digitado o la empresa no es una empresa tecnologica o de medicamentos";
+		
+		for(int i=0;i < companies.size();i++){
+			
+			if(companies.get(i)!=null){
+				
+				if((companyNit.equals(companies.get(i).getNit())) && (companies.get(i) instanceof TreePlanter)){
+					
+					TreePlanter company=(TreePlanter)companies.get(i);
+					message="Arboles a Plantar por Anio: "+(company.calculateYearTreePlanting());
+					
+				}
+				
+			}
+			
+		}
+		
+		return message;
+		
+	}
+	
+	public String showExtension(String name, String type, String companyNit){
+		
+		String message="No se encontro la empresa con el nit digitado";
+		
+		if(companyNit.equals(getNit())){
+			
+			message=showExtension(name, type);
+			
+		}
+		else{
+			
+			for(int i=0;i < companies.size();i++){
+				
+				if(companies.get(i)!=null){
+					if((companyNit.equals(companies.get(i).getNit()))){
+						
+						message=companies.get(i).showExtension(name, type);
+						
+					}
+				}
+				
+			}
+			
+		}
+		
+		return message;
+		
+	}
+	
+	public String showEmails(String charge, String companyNit){
+		
+		String message="No se encontro la empresa con el nit digitado";
+		
+		if(companyNit.equals(getNit())){
+			
+			message=showEmails(charge);
+			
+		}
+		else{
+			
+			for(int i=0;i < companies.size();i++){
+				
+				if(companies.get(i)!=null){
+					if((companyNit.equals(companies.get(i).getNit()))){
+						
+						message=companies.get(i).showEmails(charge);
+						
+					}
+				}
+				
+			}
+			
+		}
+		
+		return message;
+		
+	}
+	
 	//Add
-	public String addTechnologicalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, boolean services0, boolean services1, boolean services2, boolean services3, boolean services4, boolean services5){//Son iguales ! lol
+	public String addTechnologicalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, double energy, boolean services0, boolean services1, boolean services2, boolean services3, boolean services4, boolean services5){//Son iguales ! lol
 		
 		String message="Se ha aniadido una empresa tecnologica";
 		
-		Company technologicalCompany=new TechnologicalCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type, services0, services1, services2, services3, services4, services5);
+		Company technologicalCompany=new TechnologicalCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type, energy, services0, services1, services2, services3, services4, services5);
 		companies.add(technologicalCompany);
 		
 		return message;
 		
 	}
 	
-	public String addEducationCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, String menId, String sector, String principalName, int studentQuantity, int lowStratumStudentQuantity, int ratingSaber11, int ratingSaberPro, int highQualityCuAccreditedYears){
+	public String addEducationCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, String menId, String sector, String principalName, int studentQuantity, int lowStratumStudentQuantity, int ratingSaber, int accreditedYears){
 		
 		String message="Se ha aniadido una empresa de educacion";
 		
-		Company educationCompany=new EducationCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type, menId, sector, principalName, studentQuantity, lowStratumStudentQuantity, ratingSaber11, ratingSaberPro, highQualityCuAccreditedYears);
+		Company educationCompany=new EducationCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type, menId, sector, principalName, studentQuantity, lowStratumStudentQuantity, ratingSaber, accreditedYears);
 		companies.add(educationCompany);
 		
 		return message;
 		
 	}
 	
-	public String addPublicCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, String service, int subscribersQuantity, int lowStratumSubscribersQuantity){
+	public String addPublicCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, String service, int subscribersQuantity, int lowStratumSubscribersQuantity){
 		
 		String message="Se ha aniadido una empresa de servicios publicos";
 		
-		Company publicCompany=new PublicCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type, service, subscribersQuantity, lowStratumSubscribersQuantity);
+		Company publicCompany=new PublicCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type, service, subscribersQuantity, lowStratumSubscribersQuantity);
 		companies.add(publicCompany);
 		
 		return message;
 		
 	}
 	
-	public String addProductionCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type){//Son iguales ! lol
+	public String addProductionCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type){//Son iguales ! lol
 		
 		String message="Se ha aniadido una empresa de fabricacion";
 		
-		Company productionCompany=new ProductionCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type);
+		Company productionCompany=new ProductionCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type);
 		companies.add(productionCompany);
 		
 		return message;
 		
 	}
 	
-	public String addPharmaceuticalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, String sanitaryRecord, boolean status, Date expiration, String modality){
+	public String addPharmaceuticalCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, String sanitaryRecord, boolean status, int expirationMonth, int expirationYear, String modality){
 		
 		String message="Se ha aniadido una empresa de medicamentos";
 		
-		Company pharmaceuticalCompany=new PharmaceuticalCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type, sanitaryRecord, status, expiration, modality);
+		Company pharmaceuticalCompany=new PharmaceuticalCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type, sanitaryRecord, status, expirationMonth, expirationYear, modality);
 		companies.add(pharmaceuticalCompany);
 		
 		return message;
 		
 	}
 	
-	public String addFoodCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type, boolean kosherCertification, boolean goodAgriculturalPractices, String chemicals){
+	public String addFoodCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, int creationDay, int creationMonth, int creationYear, int floors, String type, boolean kosherCertification, boolean goodAgriculturalPractices, String chemicals){
 		
 		String message="Se ha aniadido una empresa de alimentos";
 		
-		Company foodCompany=new FoodCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles, type, kosherCertification, goodAgriculturalPractices, chemicals);
+		Company foodCompany=new FoodCompany(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors, type, kosherCertification, goodAgriculturalPractices, chemicals);
 		companies.add(foodCompany);
 		
 		return message;
@@ -192,17 +321,26 @@ public class HoldingCompany extends Company{
 		
 	}
 	
-	public String addEmployee(String employeeName, String employeeCharge, String employeeEmail, String companyNit){
+	public String addEmployee(String name, String charge, String email, String companyNit){
 		
 		String message="No se encontro la empresa con el nit digitado";
 		
-		for(int i=0;i < companies.size();i++){
+		if(companyNit.equals(getNit())){
 			
-			if(companies.get(i)!=null){
+			message=addEmployee(name, charge, email);
+			
+		}
+		else{
+			
+			for(int i=0;i < companies.size();i++){
 				
-				if(companyNit.equals(companies.get(i).getNit())){
+				if(companies.get(i)!=null){
 					
-					message=companies.get(i).addEmployee(employeeName, employeeCharge, employeeEmail);
+					if(companyNit.equals(companies.get(i).getNit())){
+						
+						message=companies.get(i).addEmployee(name, charge, email);
+						
+					}
 					
 				}
 				

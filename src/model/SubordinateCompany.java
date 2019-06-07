@@ -9,9 +9,9 @@ public abstract class SubordinateCompany extends Company{
 	private String type;
 	
 	//Constructor
-	public SubordinateCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue, Date creationDate, int floors, int cubicles, String type){
+	public SubordinateCompany(String name, String nit, String representativeName, String address, String phone, int employeeQuantity, double assetsValue,  int creationDay, int creationMonth, int creationYear, int floors, String type){
 		
-		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDate, floors, cubicles);
+		super(name, nit, representativeName, address, phone, employeeQuantity, assetsValue, creationDay, creationMonth, creationYear, floors);
 		
 		this.type=type;
 		
@@ -20,15 +20,9 @@ public abstract class SubordinateCompany extends Company{
 	//Do
 	public String toString(){
 		
-		String toString="\n	Nombre: "+getName()+"\n	Nit: "+getNit()+"\n	Representante Legal: "+getRepresentativeName()+"\n	Dirreccion: "+getAddress()+"\n	Telefono: "+getPhone()+"\n	Cantidad Empleados: "+getEmployeeQuantity()+"\n	Valor Activos: "+getAssetsValue()+"\n	Fecha Constitucion: "+getCreationDate().toString(true)+"\n	Tipo: "+type;
+		String toString=super.toString();
+		toString+="\n	Tipo: "+type;
 		return toString;
-		
-	}
-	
-	//Gets
-	public String getType(){
-		
-		return type;
 		
 	}
 	

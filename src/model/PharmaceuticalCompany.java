@@ -31,7 +31,8 @@ public class PharmaceuticalCompany extends ProductionCompany implements TreePlan
 		
 		String toString=super.toString();
 		toString+="\n	Registro Sanitario: "+sanitaryRecord;
-		toString+="\n	Estado: "+status;
+		if(status){toString+="\n	Estado: Vigente";}
+		else{toString+="\n	Estado: No renovado";}
 		toString+="\n	Vencimiento: "+expiration.toString();
 		toString+="\n	Modalidad: "+modality;
 		return toString;

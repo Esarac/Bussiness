@@ -202,7 +202,7 @@ public abstract class Company{
 			//E
 			for(int x=0; (x<building.length) && run; x++){
 				
-				if((x%2)==0){
+				if( (x==0) || (x==(building.length-1)) || (x==((building.length-1)/2)) ){
 					
 					for(int y=0; (y<building[0].length) && run; y++){
 						
@@ -220,17 +220,13 @@ public abstract class Company{
 				}
 				else{
 					
-					for(int y=(building[0].length-1); (y>=0) & run; y--){
-						
-						if(building[x][y].getEmployee()!=null){
-							if(name.equals(building[x][y].getEmployee().getName())){
-								
-								extension=building[x][y].getExtension();
-								run=false;
-								
-							}
+					if(building[x][0].getEmployee()!=null){
+						if(name.equals(building[x][0].getEmployee().getName())){
+							
+							extension=building[x][0].getExtension();
+							run=false;
+							
 						}
-						
 					}
 					
 				}
